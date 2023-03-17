@@ -1,0 +1,67 @@
+body {
+  margin: 0;
+}
+.grid-container {
+  max-width: 1100px;
+  height: 100vh;
+  height: 100svh;
+  margin-left: auto;
+  margin-right: auto;
+  border-left: 1px solid grey;
+  border-right: 1px solid grey;
+}
+.grid {
+  --transition-length: 3s;
+  --gap: 20px;
+  --cell: calc(25% - var(--gap) + (var(--gap) / 4));
+  height: 70vh;
+  height: 70svh;
+  display: grid;
+  /* grid-template-columns: repeat(4, var(--cell)); 
+  grid-template-rows: repeat(4, var(--cell)); */
+  /* grid-template-columns: repeat(4, 25%); 
+  grid-template-rows: repeat(4, 25%); */
+  /* grid-template-columns: 20% 20% 20% 20%;
+  grid-template-rows: 20% 20% 20% 20%; */
+  grid-template-columns: var(--cell) var(--cell) var(--cell) var(--cell);
+  grid-template-rows: var(--cell) var(--cell) var(--cell) var(--cell);
+  padding: 50px 20px 20px;
+  gap: var(--gap);
+}
+.cell {
+  border: 4px solid black;
+  border-radius: 20px;
+  transition: all calc(var(--transition-length) / 1.5);
+}
+.cell:first-child {
+  grid-row: 1/-1;
+}
+.cell:nth-child(2) {
+  grid-row: 1/3;
+  grid-column: 2/4;
+}
+.cell:nth-child(3) {
+  grid-row: 1/3;
+  grid-column: 4/-1;
+}
+.cell:nth-child(4) {
+  grid-row: 3/-1;
+  grid-column: 2/-1;
+}
+
+.grid.content-active {
+  animation: expand var(--transition-length) 1 forwards ease-in-out;
+  will-change: grid-template-columns, grid-template-rows, gap;
+}
+.grid.content-active .cell:not(.content) {
+  border-width: 0;
+  opacity: 0;
+}
+
+@keyframes expand {
+  100% {
+    grid-template-columns: 100% 0 0 0;
+    grid-template-rows: 100% 0 0 0;
+    gap: 0;
+  }
+}
